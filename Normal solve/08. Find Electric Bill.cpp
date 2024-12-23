@@ -1,70 +1,71 @@
-/* DATE : June 26th,2024
+/* DATE : December 23rd,2024
  MD MAHAFUZUR RAHMAN
- Roll:2110428176
+ Roll: 2110428176
  DEPARTMENT OF APPLIED MATHEMATICS,
  University Of Rajshahi.
 LinkedIn : https://www.linkedin.com/in/md-mahafuzur-rahman-07b80b1b7
 GitHub : https://github.com/itsmahafuz
 */
 
-/*Program to take input of a user name and consumed current units and print
- an electric bill which billing criteria is as follows
-i) First 50 units has minimum charge 100tk
-ii) Next 200 units cost 2.50 TK/unit
-iii) Next 250 units cost 3.50 TK/unit
-iv) Units above 500 are charged at a rate 5.00TK/unit
-Make sure you implement the idea using user-defined function.*/
+/* Program to take input of a user name and consumed current units and print
+   an electric bill which billing criteria is as follows:
+   i) First 50 units has minimum charge 100tk
+   ii) Next 200 units cost 2.50 TK/unit
+   iii) Next 250 units cost 3.50 TK/unit
+   iv) Units above 500 are charged at a rate 5.00TK/unit
+   Make sure you implement the idea using user-defined function. */
 
 #include <iostream>
-#include <iomanip>
-
+#include <cmath>
 using namespace std;
 
-double electricBill(double unit)
+// Function to calculate the electric bill based on consumed units
+void GetBill(double unit)
 {
-    double bill = 0.0;
-    if (unit <= 50)
-    {
-        bill = 100; // Minimum charge for first 50 units
-    }
-    else if (unit > 50 && unit <= 250)
-    {
-        bill = 100 + (unit - 50) * 2.5; // 2.50 TK/unit for next 200 units
-    }
-    else if (unit > 250 && unit <= 500)
-    {
-        bill = 100 + 200 * 2.5 + (unit - 250) * 3.5;
-    }
-    else
-    {
-        bill = 100 + 200 * 2.5 + 250 * 3.5 + (unit - 500) * 5.00; // 5.00 TK/unit for units above 500
-    }
-    return bill;
+    double bill;
+    if(unit <= 50)
+        bill = 100;  // Minimum charge for first 50 units
+    else if(unit > 50 && unit < 250)
+        bill = 100 + (unit - 50) * 2.50;  // Charge for next 200 units
+    else if(unit > 250 && unit < 500)
+        bill = 100 + 200 * 2.50 + (unit - 250) * 3.50;  // Charge for next 250 units
+    else if(unit > 500)
+        bill = 100 + 200 * 2.50 + 250 * 3.50 + (unit - 500) * 5.00;  // Charge for units above 500
+    
+    // Print the calculated bill
+    cout << "\nYour electric bill is: " << bill << "tk." << endl;
 }
+
 int main()
 {
-New:
-    cout.precision(2);
+    cout.precision(2);  // Set precision for floating-point output
     cout.setf(ios::fixed);
-    string fn, ln,name;
-    
-   
-    cout << "\nEnter your First & last name:\n";
-    //getline(cin, name); // Use getline to read the full name, including spaces
-   cin >> fn >> ln;
- double unit;
- int x;
-     cout << "Enter the consumed units: ";
-    cin >> unit;
-    
-    
+    char choice;  // Character to store user's choice to run the program again
 
-        cout << "\nMr./Ms." << fn << " " << ln << endl;
-        cout << "Your Electric Bill is : " << electricBill(unit) << "TK." << endl;
+    do
+    {
+        string name;  // Variable to store username
+        double unit;  // Variable to store consumed units
+        
+        cout << "\nEnter the username (kindly put a space before the username):";
+	       cin.ignore();  // Ignore the newline character left by previous input
+        getline(cin, name);  // Read the full name including spaces
+        
+        cout << "\nEnter consumed current units: ";
+        cin >> unit;
+
+        // Greet the user
+        cout << "\nHello, Mr./Ms. " << name;
+
+        GetBill(unit);  // Call the function to calculate and print the bill
+        cout << endl;
+
+        // Prompt the user to decide if they want to run the program again
+        cout << "\nDo you want to run the code again?\n";
+        cout << "Press Y/y for yes and press N/n for no..\n";
+        cin >> choice;
+        
+    } while(tolower(choice) == 'y');  // Continue if the user enters 'y' or 'Y'
     
-    cout << "\nDo you want to calculate the bill for another person?\n";
-    cout << "\nIf yes then pless 1 otherwise press 0\n";
-    cin >> x;
-    if (x == 1)
-        goto New;
+    return 0;
 }

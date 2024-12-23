@@ -1,95 +1,82 @@
-/* DATE : June 26th,2024
+/* DATE : December 23rd,2024
  MD MAHAFUZUR RAHMAN
- Roll:2110428176
+ Roll: 2110428176
  DEPARTMENT OF APPLIED MATHEMATICS,
  University Of Rajshahi.
 LinkedIn : https://www.linkedin.com/in/md-mahafuzur-rahman-07b80b1b7
 GitHub : https://github.com/itsmahafuz
 */
 
-// Largest and smallest number that can be formed using digit of a given number
+// Largest and smallest number that can be formed using digits of a given number 
+// Using User Defined functions
 
-#include <iostream>
-#include <cstring>
+#include<iostream>
+#include<string>
 using namespace std;
 
-int numDigits(int num)
+// Function to find the smallest number by sorting digits in ascending order
+void SmallestNum(string num, int size)
 {
-    int digits = 0;
-    if (num < 0)
-        digits = 1; // Remove this line if '-' doesn't count as a digit
-    while (num > 0)
+    for(int i = 0; i < size; i++)
     {
-        num /= 10;
-        digits++;
-    }
-    return digits;
-}
-
-void largestN(string a, int n)
-{
-    // For largest number we need to find out the descending order of the digit
-    // for descending order
-    int temp;
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = i + 1; j < n; j++)
+        for(int j = i + 1; j < size; j++)
         {
-            if (a[i] < a[j])
+            if(num[i] > num[j])
             {
-                temp = a[i];
-                a[i] = a[j];
-                a[j] = temp;
+                char temp = num[i];
+                num[i] = num[j];
+                num[j] = temp;
             }
         }
     }
-    cout << "\n The largest number that can be formed using the digits of the given number is : ";
-    for (int i = 0; i < n; i++)
-        {
-            cout<<a[i];
-        }
-        cout<<endl;
+    cout << "\nThe smallest number is: ";
+    for(int i = 0; i < size; i++)
+    {
+        cout << num[i];
+    }
+    cout << endl;
 }
 
-void smallestN(string a,int n)
+// Function to find the largest number by sorting digits in descending order
+void LargestNum(string num, int size)
 {
-
-    // For smallest number we need to find out ascending order of the digit
-    // For ascending order
-    int temp;
-    for(int i=0;i<n;i++)
-    for(int j=i+1;j<n;j++)
+    for(int i = 0; i < size; i++)
     {
-        if(a[i]>a[j])
+        for(int j = i + 1; j < size; j++)
         {
-            temp=a[i];
-            a[i]=a[j];
-            a[j]=temp;
+            if(num[i] < num[j])
+            {
+                char temp = num[i];
+                num[i] = num[j];
+                num[j] = temp;
+            }
         }
     }
-     // Hence the smallest number that can be formed ...
-    cout << "\n The smallest number that can be formed using the digits of the given number is : ";
-    for (int i = 0; i < n; i++)
-        cout << a[i];
+    cout << "\nThe largest number is: ";
+    for(int i = 0; i < size; i++)
+    {
+        cout << num[i];
+    }
     cout << endl;
 }
 
 int main()
 {
-    int num,x;
-    New: 
-    cout << "\nPlease Enter a positive integer number:\n";
-    cin >> num;
-    int n=numDigits(num);
-    string a=to_string(num);
-    largestN(a,n);
-    smallestN(a,n);
-    cout << "\nDo you want to check with a new number?\n";
-    cout << "\nIf yes then press 1 otherwise press 0\n";
-    cin >> x;
-    if (x == 1)
-        goto New;
+    char choice;  // Character to store user's choice for running the program again
+    do
+    {
+        string number;  // Variable to store the input number as a string
+        cout << "\nPlease Enter a positive integer number: ";
+        cin >> number;
+        int size = number.size();  // Get the size of the string using the inbuilt 'size()' function
+        
+        SmallestNum(number, size);  // Call function to find the smallest number
+        LargestNum(number, size);  // Call function to find the largest number
+        
+        // Prompt the user to decide if they want to run the program again
+        cout << "\nIf you want to run the code again then press Y/y, otherwise press other characters: \n";
+        cin >> choice;
+    } while(tolower(choice) == 'y');  // Continue if the user enters 'y' or 'Y'
 
     return 0;
-
 }

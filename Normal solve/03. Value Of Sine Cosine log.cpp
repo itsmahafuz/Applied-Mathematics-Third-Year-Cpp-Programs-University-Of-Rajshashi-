@@ -1,149 +1,122 @@
 /*
- MD MAHAFUZUR RAHMAN
- Roll:2110428176
- Department of Applied Mathematics
- University Of Rajshahi.
+Date: 23/12/2024
+MD MAHAFUZUR RAHMAN
+Roll: 2110428176
+Department of Applied Mathematics
+University Of Rajshahi.
 LinkedIn : https://www.linkedin.com/in/md-mahafuzur-rahman-07b80b1b7
 GitHub : https://github.com/itsmahafuz
 */
 
-/*Program to find the value of sin 𝑥 ,cos x and log(1 + x) using its
- series for some given 𝑥
-using WHILE or DO WHILE condition.
-*/
+/* Program to find the value of sin(x), cos(x), and log(1 + x) using its
+   series for some given x using WHILE or DO WHILE condition. */
 
 #include <iostream>
 #include <cmath>
-#include <iomanip>
+#define pi 3.14159  // Define the value of pi
+
 using namespace std;
-#define pi 3.14159
-#define epsilon  0.00001 // Tolerance for convergence
 
-
-
-// Function for sin x series..
-
-double sinefun(double x, int n)
+// Function to calculate sin(x) using its series expansion
+void SineFun(double x, int n)
 {
-    n = n - 1;
-    x = x * (pi / 180.0);
-    double fact = 1, sum = x;
+    double xr = x * (pi / 180);  // Convert x from degrees to radians
+    double sum = xr, fact = 1;  // Initialize sum and factorial
     int i = 1;
+    n = n - 1;  // Adjust number of terms
 
     if (n == 0)
-        sum = x;
+    {
+        sum = xr;  // If n is 0, sum is just xr
+    }
     else
     {
-        do
+        while (i <= n)
         {
-            fact = fact * (2 * i + 1) * (2 * i);
-            sum = sum + (pow(-1, i) * pow(x, 2 * i + 1)) / fact;
+            fact = fact * (2 * i + 1) * (2 * i);  // Calculate factorial for the denominator
+            sum = sum + (pow(-1, i) * pow(xr, 2 * i + 1)) / fact;  // Update sum
             i++;
-        } while (i <= n);
-    }
-    return sum;
-}
-
-// Function for cos x series..
-
-double cosinefun(double x, int n)
-{
-    x = x * (pi / 180.0);
-    n = n - 1;
-    double fact = 1, sum = 1;
-    int i = 1;
-    if (n == 0)
-        sum = 1;
-    else
-    {
-        do
-        {
-            fact = fact * (2 * i) * (2 * i - 1);
-            sum = sum + (pow(-1, i) * pow(x, 2 * i)) / fact;
-            i++;
-        } while (i <= n);
-    }
-    return sum;
-}
-
-//Function for log(1+x) series...
-//log10(1+x) = ln(1+x)/ln(10)
-
-void logfun(double y,int n)
-{
-  double x=1+y;
-  
- 
-    
-    //The natural logarithm ln(x) can be approximated by the series
-    // ln(1+v/1-v)=2(v+v^3/3+v^5/5+........)
-    //Where v=(x-1)/(x+1)
-
-// Calculate v used in the series approximation
-    double v=(x-1)/(x+1);
-    double sum=0.0,p;
-    int i=1;
-   while (i <= (2 * n - 1)) {
-        p = 1;
-        int j = 1;
-        
-        // Compute v^i
-        while (j <= i) {
-            p = p * v;
-            j++;
         }
-        
-        // Add the term to the sum
-        sum += p / i;
-        i += 2;
     }
-
-// Calculate the error between the standard log and the approximation
-    double error = abs(log10(x) - 2 * sum / log(10));
-
-    // Print the actual logarithm using the standard library
-    cout << "\nThe actual vaule of log(1+y) using the standard library : " << log10(x) << endl;
-    cout << "\nError : " << error<< endl;
-    cout << "\nThe value of log (1 + " << y << ") = " << 2 * sum / log(10)<<endl;
-  
+    // Output the calculated value of sin(x)
+    cout << "\nThe value of sin(" << x << ") is : " << sum << endl;
 }
 
-//Here is the main function......
+// Function to calculate cos(x) using its series expansion
+void CosineFun(double x, int n)
+{
+    double xr = x * (pi / 180);  // Convert x from degrees to radians
+    double sum = 1, fact = 1;  // Initialize sum and factorial
+    int i = 1;
+    n = n - 1;  // Adjust number of terms
+
+    if (n == 0)
+    {
+        sum = 1;  // If n is 0, sum is 1
+    }
+    else
+    {
+        while (i <= n)
+        {
+            fact = fact * (2 * i - 1) * (2 * i);  // Calculate factorial for the denominator
+            sum = sum + (pow(-1, i) * pow(xr, 2 * i)) / fact;  // Update sum
+            i++;
+        }
+    }
+    // Output the calculated value of cos(x)
+    cout << "\nThe value of cos(" << x << ") is : " << sum << endl;
+}
+
+// Function to calculate log(1 + x) using its series expansion
+void LogFun(double x, int n)
+{
+    // The natural logarithm ln(1+x) can be approximated by the series
+    // ln(1+u/1-u)=2(u+u^3/3+u^5/5+........)
+    // Where u=(x-1)/(x+1)
+    double y = 1 + x;
+    double u = (y - 1) / (1 + y);  // Calculate u = (x-1)/(x+1)
+
+    double sum = 0;
+    // Iterate to sum the series terms
+    int i = 1;
+    while ( i < 2 * n - 1)
+    {
+        sum = sum + pow(u, 2 * i - 1) / (2 * i - 1);
+        i++;
+    }
+    // Output the calculated value of log(1 + x)
+    cout << "\nThe value of log(1 + " << x << ") is : " << 2 * sum << endl;
+}
 
 int main()
 {
-        // Setting precision for floating-point output
-    cout.precision(10);
+    cout.precision(6);  // Set precision for floating-point output
     cout.setf(ios::fixed);
+    char choice;  // Variable to store user's choice to run the program again
 
-    // Declare variables
+    do
+    {
+        int n;  // Variable to store the number of terms
+        double x, y;  // Variables to store input values for series calculation
+        
+        cout << "\nEnter the number of terms you want to calculate for sin(x), cos(x) and log(1 + x) series (n > 0) : ";
+        cin >> n;
 
-    int n;
-    double x, y;
+        cout << "\nEnter the value of x for sin(x) and cos(x) series (in degree) : ";
+        cin >> x;
 
-   NewStart:
-    cout << "Please enter the value of y (y>=0 for log (1+y) series):\n";
-    cin >> y;
-    cout << "Please enter the value of x in degree(for sine and cosine series):\n";
-    cin >> x;
+        cout << "\nEnter the value of x for log(1 + x) series : ";
+        cin >> y;
 
-    // Input the number of terms for series approximation
+        SineFun(x, n);  // Call function to calculate sin(x)
+        CosineFun(x, n);  // Call function to calculate cos(x)
+        LogFun(y, n);  // Call function to calculate log(1 + x)
+        
+        // Prompt the user to decide if they want to run the program again
+        cout << "\nIf you want to run the code again then press Y/y otherwise press any other character: ";
+        cin >> choice;
 
-    cout << "Please enter the number of term(n>=1) that you want to calculate:\n";
-    cin >> n;
+    } while (tolower(choice) == 'y');  // Continue if the user enters 'y' or 'Y'
 
-    cout << "\nThe value of sin(" << x << ") is: " << sinefun(x, n)<<endl;
-
-    cout << "\nThe value of cos(" << x << ") is: " << cosinefun(x, n)<<endl;
-
-    cout<<"\nFOR log(1+x) series:\n";
-    logfun(y,n);
-    cout<<endl;
-  double in;
-    cout << "\n Do you want to check with new inputs?\n";
-    cout << "\n If yes then please press 1 otherwise press 0:\n";
-    cin >> in;
-    if (in == 1)
-        goto NewStart;
-
+    return 0;
 }

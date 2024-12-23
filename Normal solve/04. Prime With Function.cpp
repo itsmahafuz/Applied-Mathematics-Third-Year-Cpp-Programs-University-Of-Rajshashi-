@@ -1,7 +1,7 @@
 /*
- DATE : June 26th,2024
+ DATE : December 23rd,2024
  MD MAHAFUZUR RAHMAN
- Roll:2110428176
+ Roll: 2110428176
  Department of Applied Mathematics
  University Of Rajshahi.
  LinkedIn : https://www.linkedin.com/in/md-mahafuzur-rahman-07b80b1b7
@@ -13,43 +13,55 @@
  for both with and without user defined function.
 */
 
-#include <iostream>
+#include<iostream>
 using namespace std;
 
-void prime(int n)
+// Function to check if a number is prime
+void checkPrime(int n)
 {
-    int flag = 0;
-    if (n <= 1)
-        cout << "\nThe given number is not prime.\n";
-    else if (n > 1)
+    if(n <= 1)  // Check if the number is less than or equal to 1
     {
-        for (int i = 2; i < n - 1; i++)
+        cout << "\nThe number is not a prime number..\n";
+    }
+    else
+    {
+        int flag = 0;  // Initialize flag to 0 for each iteration
+        for(int i = 2; i < n; i++)  // Loop from 2 to n-1
         {
-
-            if (n % i == 0)
-                flag++;
+            if(n % i == 0)  // Check if the number is divisible by i
+            {
+                flag++;  // Increment flag if a divisor is found
+                break;  // Exit the loop if a divisor is found
+            }
         }
-        if (flag == 0)
-            cout << "\n The given number is prime.\n";
+        
+        if(flag == 0)  // If flag is still 0, the number is prime
+        {
+            cout << "\nThe number is a prime number..\n";
+        }
         else
-            cout << "\nThe given number is not prime.\n";
+        {
+            cout << "\nThe number is not a prime number..\n";
+        }
     }
 }
 
 int main()
 {
-  a:
-    int n;
-    cout << "\nPlease enter a number to check it is prime or not:\n";
-    cin >> n;
-    prime(n);
-  
-   int x;
-    cout << "\nDo you want to check  another number?\n";
-    cout << "\nIf yes then pless 1 otherwise press 0\n";
-    cin >> x;
-    if (x == 1)
-        goto a;
-
+    int n;  // Variable to store the number to be checked
+    char choice;  // Variable to store user's choice to run the program again
+    
+    do
+    {
+        cout << "\nEnter a number to check: ";
+        cin >> n;
+        
+        checkPrime(n);  // Call the function to check if the number is prime
+        
+        cout << "\nDo you want to run the code again?\n";
+        cout << "Press Y/y for yes and press N/n for no..\n";
+        cin >> choice;
+    } while(tolower(choice) == 'y');  // Continue if the user enters 'y' or 'Y'
+    
     return 0;
 }

@@ -1,6 +1,6 @@
-/* DATE : June 26th,2024
+/* DATE : December 23rd,2024
  MD MAHAFUZUR RAHMAN
- Roll:2110428176
+ Roll: 2110428176
  Department of Applied Mathematics,
  University Of Rajshahi.
 LinkedIn : https://www.linkedin.com/in/md-mahafuzur-rahman-07b80b1b7
@@ -8,127 +8,122 @@ GitHub : https://github.com/itsmahafuz
 */
 
 /*
-Program to take input of the name  of a third year student of Applied
+Program to take input of the name of a third year student of Applied
 Mathematics, RU and marks obtained in all courses including LAB and
 viva, and print the overall GPA in year three following the standard grading
 criteria of Applied Mathematics.
 */
 
-/*
-In the third year, there are 11 courses including LAB and Viva.
-Where full mark of Viva course is 50 and full mark of the others are 100.*/
-
 #include <iostream>
+#include <string>
 #include <cmath>
 using namespace std;
 
-// Function to calculate grade points based on marks
-double grade(double marks)
+// Function to get the grade point based on the marks
+double GetGrade(double n)
 {
-    if (marks >= 80)
+    if(n >= 80)
         return 4.00; // A+
-    else if (marks >= 75)
+    else if(n >= 75)
         return 3.75; // A
-    else if (marks >= 70)
+    else if(n >= 70)
         return 3.50; // A-
-    else if (marks >= 65)
+    else if(n >= 65)
         return 3.25; // B+
-    else if (marks >= 60)
+    else if(n >= 60)
         return 3.00; // B
-    else if (marks >= 55)
+    else if(n >= 55)
         return 2.75; // B-
-    else if (marks >= 50)
+    else if(n >= 50)
         return 2.50; // C+
-    else if (marks >= 45)
+    else if(n >= 45)
         return 2.25; // C
-    else if (marks >= 40)
+    else if(n >= 40)
         return 2.00; // D
     else
-        return 0.00; // F
+        return 0.00;  // F (Fail)
 }
 
 int main()
 {
-New:
-    string firstname, lastname;
-    cout << "\nEnter your first name and last name:\n";
-    cin >> firstname >> lastname;
+    cout.precision(3);
+    cout.setf(ios::fixed);
+    char choice;
 
-    int r;
-    cout << "\nEnter Roll number:\n";
-    cin >> r;
-
-    
-    double marks, sum=0, m320, m321;
-    double a[11];
-
-    // We will get the marks of 9 main course (i.e. Without Lab and Viva)
-    for (int i = 1; i < 10; i++)
+    do
     {
-    a:
-        cout << "\nEnter marks obtained in the course A.Math-30" << i << " : ";
-        cin >> marks;
-        if (marks < 0 || marks > 100)
-            goto a;
-        a[i] = grade(marks) * 4.0;
-        sum = sum + a[i]; // Here we multiplied grade with 4.0 because this course has 4 credits
-    }
+        // There are nine main courses of 100 marks
+        // One lab of 100 marks
+        // One viva of 50 marks
 
-// Now we will take input of Lab coure 320
-b:
-    cout << "\nEnter marks obtained in the course A.Math-320 : ";
-    cin >> m320;
-    if (m320 < 0 || m320 > 100)
-        goto b;
-    a[10] = grade(m320) * 4.0;
-    sum = sum + a[10];
+        double a[11];  // Array to store marks of courses
+        string name;  // Variable to store student's name
+        int roll;  // Variable to store student's roll number
+        cout << "\nEnter your name: \n";
+        cin.ignore();  // To ignore the newline character left by previous input
+        getline(cin, name);  // To read the full name including spaces
 
-    // Now we will take input of Viva coure 321
-    // The full mark for this course is 50.
-c:
-    cout << "\nEnter marks obtained in the course A.Math-321 : ";
-    cin >> m321;
-    m321=m321*2;
-    if (m321 < 0 || m321 > 100)
-        goto c;
-    a[11] = grade(m321) * 4.0;
-    sum = sum + a[11];
+        cout << "\nEnter your roll number:\n";
+        cin >> roll;
 
-    /*Accroding To Applied Mathematics If you fail in A.Math-320
-    then you are fail..
-    */
-    if (m320 < 40)
-    {
-        cout << "\nYour CGPA is : 0.00\n"
-             << endl;
-        cout << "Sorry! You fail.\n";
-    }
-    else
-    {
-        // Another rule is if you fail more than 2 courses then you fail
-        int count = 0;
-        for (int i = 1; i < 12; i++)
+        double CGrade = 0;  // Variable to store cumulative grade points
+        for(int i = 0; i < 9; i++)
         {
-            if (a[i] == 0)
-                count++;
+        aga:
+            // Prompt user to enter marks for each course
+            cout << "\nEnter the marks obtained in the course A.Math-30" << i + 1 << ": ";
+            cin >> a[i];
+            if(a[i] > 100 || a[i] < 0)
+            {
+                cout << "\nInvalid marks, please enter again.";
+                goto aga;
+            }
+            CGrade = CGrade + 4 * GetGrade(a[i]);  // Calculate grade points for each course
         }
-        if (count > 2)
+
+        // For Lab course
+        aa: 
+        cout << "\nEnter the marks obtained in the course A.Math-320: ";
+        cin >> a[9];
+        if(a[9] > 100 || a[9] < 0)
         {
-            cout << "\nYour CGPA is : 0.00\n"
-                 << endl;
-            cout << "Sorry! You fail.\n";
+            cout << "\nInvalid marks, please enter again.";
+            goto aa;
+        }
+        CGrade = CGrade + 4 * GetGrade(a[9]);  // Calculate grade points for lab course
+
+        // For viva course
+        ab: 
+        cout << "\nEnter the marks obtained in the course A.Math-321: ";
+        cin >> a[10];
+        if(a[10] > 50 || a[10] < 0)
+        {
+            cout << "\nInvalid marks, please enter again.";
+            goto ab;
+        }
+        a[10]=2.0*a[10];
+        CGrade = CGrade + 4 * GetGrade( a[10]);  // Calculate grade points for viva course
+
+        double result = CGrade / 44.00;  // Calculate overall GPA
+
+        // Check if the student has failed
+        if(GetGrade(a[9]) < 2.00 || GetGrade(a[10]) < 2.00 || result < 2.00)
+        {
+            cout << "\nSorry ..You failed...!\n";
+            cout<<"\nYour CGPA is : 0.00";
+            cout << "\nBest of luck for the next time..\n";
         }
         else
         {
-            // CGPA=summation(credit*grade)/summation(credit)
-            cout << "\nYour CGPA is : " << sum / 44; // Total credit=10*4+2=40+2=42
-            cout << "\nCongratulation ! You pass..\n";
+            cout << "\nCongratulations ..You passed...!\n";
+            cout << "\nYour CGPA is: " << result << endl;
         }
-    }
-    int x;
-    cout << "\nDo you want to calculate the CGPA for another person?\n";
-    cout << "\nIf yes then pless 1 otherwise press 0\n";
-    cin >> x;
-    if (x == 1)
-        goto New;
+
+        // Prompt the user to decide if they want to run the program again
+        cout << "\nDo you want to calculate again? (Y/y for yes, any other key for no): ";
+        cin >> choice;
+
+    } while(tolower(choice) == 'y');  // Continue if the user enters 'y' or 'Y'
+
+    return 0;
 }

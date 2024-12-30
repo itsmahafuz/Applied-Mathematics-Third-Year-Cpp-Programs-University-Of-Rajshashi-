@@ -105,9 +105,17 @@ int main()
         CGrade = CGrade + 4 * GetGrade( a[10]);  // Calculate grade points for viva course
 
         double result = CGrade / 44.00;  // Calculate overall GPA
+        
+        int count=0;
+        //Check if the student has failed in more than two subjects
+        for(int i=0;i<11;i++)
+        {
+        	if(GetGrade(a[i])==0)
+        	count++;
+	   }
 
         // Check if the student has failed
-        if(GetGrade(a[9]) < 2.00 || GetGrade(a[10]) < 2.00 || result < 2.00)
+        if(GetGrade(a[9]) < 2.00 || GetGrade(a[10]) < 2.00 || result < 2.00 || count>2)
         {
             cout << "\nSorry ..You failed...!\n";
             cout<<"\nYour CGPA is : 0.00";

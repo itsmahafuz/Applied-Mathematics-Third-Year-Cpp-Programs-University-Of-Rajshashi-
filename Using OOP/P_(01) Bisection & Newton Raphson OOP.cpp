@@ -84,7 +84,7 @@ public:
         double x0 = 0;
         int i = 1;
         cout << "\n Accroding to Newton Raphson Method:\n";
-        while (abs(x1 - x0) >= t)
+        do
         {
             x0 = x1;
             if (ff(x0) == 0)
@@ -95,7 +95,7 @@ public:
             x1 = x0 - f(x0) / ff(x0);
             cout << "\n At step-" << i << " x" << i << " = " << x1 << endl;
             i++;
-        }
+        }while (abs(x1 - x0) >= t);
 
         cout << "\nThe required root of the function is:" << x1 << endl;
         cout << "The number of times the iteration was continued is:" << i - 1 << endl;

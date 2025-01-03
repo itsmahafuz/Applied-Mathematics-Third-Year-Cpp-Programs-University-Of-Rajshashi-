@@ -118,7 +118,7 @@ int main()
         if(GetGrade(a[9]) < 2.00 || GetGrade(a[10]) < 2.00 || result < 2.00 || count>2)
         {
             cout << "\nSorry ..You failed...!\n";
-            cout<<"\nYour CGPA is : 0.00";
+            cout<<"\nYour CGPA is : "<<result;
             cout << "\nBest of luck for the next time..\n";
         }
         else

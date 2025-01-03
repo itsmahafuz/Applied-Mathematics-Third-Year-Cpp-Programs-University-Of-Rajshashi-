@@ -21,51 +21,55 @@ v) 40% tax for income above 5000000
 #include <iomanip>
 using namespace std;
 
-double IncomeTax(double inc)
+// Function to calculate the tax based on income
+double gettax(double inc)
 {
-    double tax = 0.0;
-    if (inc <= 250000)
+    if(inc<=250000)
     {
-        tax = 0.0;
+        return 0;  // No tax for income up to 250000
     }
-    else if (inc > 250000 && inc <= 500000)
+    else if(inc>250000 && inc<=500000)
     {
-        tax = (inc - 250000) * .05;
+        return (inc-250000)*.05;  // 5% tax for income above 250000 up to 500000
     }
-    else if (inc > 500000 && inc <= 1000000)
+    else if(inc>500000 && inc<=1000000)
     {
-        tax = 250000 * 0.05 + (inc - 500000) * 0.1;
+        return 250000*.05 + (inc-500000)*.1;  // Additional 10% tax for income above 500000 up to 1000000
     }
-    else if (inc > 1000000 && inc <= 5000000)
+    else if(inc>1000000 && inc<=5000000)
     {
-        tax = 250000 * 0.05 + 500000 * 0.1 + (inc - 1000000) * .2;
+        return 250000*.05 + 500000*.1 +(inc -1000000)*.2;  // Additional 20% tax for income above 1000000 up to 5000000
     }
-    else
+    else if(inc>5000000 && inc*10000000)
     {
-        tax = 250000 * 0.05 + 500000 * 0.1 + 1000000 * .2 + (inc - 5000000) * .4;
+        return 250000*.05 + 500000*.1 +4000000*.2+(inc-5000000)*.4;  // Additional 40% tax for income above 5000000
     }
-    return tax;
+    
 }
+
 int main()
 {
-a:
-    cout.precision(2);
-    cout.setf(ios::fixed);
-    string fname,lname;
-    cout << "\nEnter your First & last name:\n";
-        // getline(cin, name); // Use getline to read the full name, including spaces
-        cin >> fname >> lname;
-    double inc;
-    cout << "\nEnter your yearly total income: ";
-    cin >> inc;
-    cout<<"\nMr./Ms."<<fname<<endl;
-    cout<<"Your Income Tax is : "<<IncomeTax(inc)<<" Tk."<<endl;
-
-    int si;
-    cout << "\nDO you want to calculate income tax for a different person?\n";
-    cout << "\nIf yes press 1 or 0\n";
-    cin >> si;
-    if (si == 1)
-        goto a;
+    cout.precision(2);  // Set precision for floating-point output
+    cout.setf(ios::fixed);  // Set the output format to fixed-point notation
+    char choice;
+    do
+    {
+        string name;
+        cout<<"\nEnter your name (Start with a space) :\n";
+        cin.ignore();  // Ignore the newline character left in the input buffer
+        getline(cin,name);  // Get the user's name
+        
+        double inc;
+        cout<<"\nEnter your yearly income : \n";
+        cin>>inc;  // Get the user's yearly income
+        
+        cout<<"\nHello, \n\t Mr./Ms. "<<name<<endl;
+        cout<<"\nYour income tax is : "<<gettax(inc)<<" tk.\n";  // Display the calculated tax
+        
+        cout<<"\n\nIf you want to run the code again then press Y/y otherwise press any other character : \n";
+        cin>>choice;  // Get the user's choice to run the code again
+    }while(tolower(choice)=='y');  // Repeat the process if the user wants to
+    
     return 0;
 }
+

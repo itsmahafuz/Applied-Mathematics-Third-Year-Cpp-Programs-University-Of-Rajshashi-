@@ -79,7 +79,7 @@ void LogFun(double x, int n)
     double sum = 0;
     // Iterate to sum the series terms
     int i = 1;
-    while ( i < 2 * n - 1)
+    while ( i <= 2 * n - 1)
     {
         sum = sum + pow(u, 2 * i - 1) / (2 * i - 1);
         i++;

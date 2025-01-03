@@ -38,10 +38,20 @@ int main()
             }
         }
         cout << "\nThe smallest number that can be formed using digits of the given number is: ";
-        for(int i = 0; i < size; i++)
+        if(number[0]=='0')
         {
+     	for(int i = 1; i < size; i++)
+          {
             cout << number[i];
-        }
+          }
+	   }
+	   else
+	   {
+	    for(int i = 0; i < size; i++)
+         {
+           cout << number[i];
+         }
+	   }
         cout << endl;
         
         // Find the largest number by sorting digits in descending order
@@ -58,10 +68,10 @@ int main()
             }
         }
         cout << "\nThe largest number that can be formed using digits of the given number is: ";
-        for(int i = 0; i < size; i++)
-        {
-            cout << number[i];
-        }
+  	    for(int i = 0; i < size; i++)
+         {
+           cout << number[i];
+         }
         cout << endl;
         
         // Prompt the user to decide if they want to run the program again

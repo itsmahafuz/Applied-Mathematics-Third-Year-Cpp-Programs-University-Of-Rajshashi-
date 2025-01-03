@@ -58,7 +58,7 @@ public:
         }
         else
         {
-            tax = 250000 * 0.05 + 500000 * 0.1 + 1000000 * .2 + (inc - 5000000) * .4;
+            tax = 250000 * 0.05 + 500000 * 0.1 + 4000000 * .2 + (inc - 5000000) * .4;
         }
         cout << "\nMr./Ms." << fname << endl;
         cout << "Your Income Tax is : " << tax << " Tk." << endl;

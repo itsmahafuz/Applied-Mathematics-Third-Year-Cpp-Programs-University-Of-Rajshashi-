@@ -99,7 +99,7 @@ int main()
         cout << "\nEnter the value of x (in degrees) for cos(x) series :\n";
         cin >> y;
         
-        cout << "\nEnter the value of x >= 0 for log(1+x) series :\n";
+        cout << "\nEnter the value of x >-1 for log(1+x) series :\n";
         cin >> z;
         
         cout << "\nEnter the number of terms that you want to calculate for sin(x), cos(x), and log(1+x) series : \n";
@@ -115,3 +115,4 @@ int main()
     } while (tolower(choice) == 'y');  // Repeat the process if the user wants to
     return 0;
 }
+

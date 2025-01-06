@@ -25,9 +25,9 @@ void GetBill(double unit)
     double bill;
     if(unit <= 50)
         bill = 100;  // Minimum charge for first 50 units
-    else if(unit > 50 && unit < 250)
+    else if(unit > 50 && unit <= 250)
         bill = 100 + (unit - 50) * 2.50;  // Charge for next 200 units
-    else if(unit > 250 && unit < 500)
+    else if(unit > 250 && unit <= 500)
         bill = 100 + 200 * 2.50 + (unit - 250) * 3.50;  // Charge for next 250 units
     else if(unit > 500)
         bill = 100 + 200 * 2.50 + 250 * 3.50 + (unit - 500) * 5.00;  // Charge for units above 500
